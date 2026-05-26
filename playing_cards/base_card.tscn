@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b6oe2apyqr0s6"]
+
+[ext_resource type="Script" uid="uid://cu4w8nafe3d7" path="res://playing_cards/base_card.gd" id="1_yok0v"]
+[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://playing_cards/variable_component.gd" id="2_n0xcb"]
+
+[sub_resource type="Resource" id="Resource_ekcly"]
+script = ExtResource("2_n0xcb")
+value = "hello there"
+nodes = Array[NodePath]([NodePath("Label")])
+metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
+
+[node name="BaseCard" type="Node2D" unique_id=404934485]
+script = ExtResource("1_yok0v")
+variables = Dictionary[String, ExtResource("2_n0xcb")]({
+"test": SubResource("Resource_ekcly")
+})
+
+[node name="Label" type="Label" parent="." unique_id=1253327979]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "test"
