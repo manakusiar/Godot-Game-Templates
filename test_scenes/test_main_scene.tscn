@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_88kqg"]
 script = ExtResource("2_kujgc")
-value = "res://playing_cards/test_assets/sword.png"
+value = "uid://die7wlk7gdqus"
 nodes = Array[NodePath]([NodePath("TextureRect/Image")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
