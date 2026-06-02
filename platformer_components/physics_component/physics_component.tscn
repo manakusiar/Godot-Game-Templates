@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ldyuw75enusf"]
+
+[ext_resource type="Script" uid="uid://fwapy2jjmylm" path="res://platformer_components/physics_component/physics_component.gd" id="1_vp1td"]
+
+[node name="PhysicsComponent" type="Node2D" unique_id=1423151820]
+scale = Vector2(1.0078235, 1.062893)
+script = ExtResource("1_vp1td")
