@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b6oe2apyqr0s6" path="res://card_templates/base_card/base_card.tscn" id="1_le32m"]
 [ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://card_templates/base_card/variable_component.gd" id="2_kujgc"]
-[ext_resource type="Texture2D" uid="uid://b8bvdpsctaeme" path="res://card_templates/zzz_test_assets/empty-card.png" id="3_gfviw"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://card_templates/zzz_test_assets/empty-card.png" id="3_gfviw"]
 [ext_resource type="Texture2D" uid="uid://die7wlk7gdqus" path="res://card_templates/zzz_test_assets/sword.png" id="4_bf3ff"]
 [ext_resource type="FontFile" uid="uid://c146h4s0qhk0j" path="res://card_templates/zzz_test_assets/Mitochondria.ttf" id="5_02vrb"]
 [ext_resource type="FontFile" uid="uid://36f3dby8b41d" path="res://card_templates/zzz_test_assets/GrapeSoda.ttf" id="6_hnbg1"]

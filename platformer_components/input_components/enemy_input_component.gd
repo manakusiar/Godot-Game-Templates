@@ -1,2 +1,0 @@
-extends InputComponent
-class_name EnemyInputComponent
