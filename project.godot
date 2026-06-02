@@ -10,9 +10,16 @@ config_version=5
 
 [application]
 
+<<<<<<< HEAD
 config/name="New Game Project"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+=======
+config/name="Godot Game Teplates"
+run/main_scene="uid://ubsr1t4nvb13"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="uid://c7tujatwwm4vk"
+>>>>>>> origin/main
 
 [physics]
 
@@ -20,4 +27,8 @@ config/icon="res://icon.svg"
 
 [rendering]
 
+<<<<<<< HEAD
+=======
+textures/canvas_textures/default_texture_filter=0
+>>>>>>> origin/main
 rendering_device/driver.windows="d3d12"
