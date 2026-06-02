@@ -15,12 +15,12 @@ func _input(event: InputEvent) -> void:
 		elif event.is_action_released(_in.jump):
 			jump_input.emit(false)
 			
-		elif event.is_action_released(_in.aim):
+		elif event.is_action_pressed(_in.aim):
 			aim_input.emit(true)
 		elif event.is_action_released(_in.aim):
 			aim_input.emit(false)
 			
-		elif event.is_action_released(_in.crouch):
+		elif event.is_action_pressed(_in.crouch):
 			crouch_input.emit(true)
 		elif event.is_action_released(_in.aim):
 			crouch_input.emit(false)

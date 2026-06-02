@@ -3,11 +3,13 @@
 [ext_resource type="Script" uid="uid://dfdcijgdas0sq" path="res://platformer_templates/entity_template.gd" id="1_60ys1"]
 [ext_resource type="Script" uid="uid://w8bhhrs12crw" path="res://platformer_templates/input_components/player_input_component.gd" id="2_80keq"]
 [ext_resource type="PackedScene" uid="uid://ldyuw75enusf" path="res://platformer_templates/physics_component/physics_component.tscn" id="3_0nryn"]
+[ext_resource type="Texture2D" uid="uid://c7tujatwwm4vk" path="res://project_files/icon.png" id="4_80keq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n22hb"]
 size = Vector2(129, 128)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18u2u"]
+texture = ExtResource("4_80keq")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -160,6 +162,7 @@ LocalInputComponent = NodePath("../PlayerInputComponent")
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="EntityTemplate" unique_id=1729163150]
+texture = ExtResource("4_80keq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityTemplate" unique_id=26463820]
 position = Vector2(-0.5, 0)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Game Teplates"
-run/main_scene="uid://ubsr1t4nvb13"
+run/main_scene="uid://drmt1how0qg3v"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://c7tujatwwm4vk"
 

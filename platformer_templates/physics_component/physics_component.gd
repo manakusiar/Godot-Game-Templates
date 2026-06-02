@@ -48,7 +48,7 @@ func handle_physics(delta: float) -> void:
 	if target.is_on_floor() and acc.y > 0:
 		acc.y = 0
 	
-	vel += acc * dmult
+	vel += acc * dmult * acceleration_modifier
 	vel *= resistence * dmult
 	acc *= resistence * dmult
 	acc.x = min(acc.x, max_speed.x) if acc.x > 0 else max(acc.x, -max_speed.x)
