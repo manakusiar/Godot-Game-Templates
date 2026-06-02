@@ -53,7 +53,10 @@ metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 [node name="TestMainScene" type="Node2D" unique_id=981349146]
 
 [node name="BaseCard" parent="." unique_id=404934485 instance=ExtResource("1_qub46")]
-position = Vector2(272, 109)
+offset_left = 272.0
+offset_top = 109.0
+offset_right = 272.0
+offset_bottom = 109.0
 variables = Dictionary[String, ExtResource("2_ydptp")]({
 "cost": SubResource("Resource_t5ksu"),
 "damage": SubResource("Resource_nt6dg"),
@@ -65,6 +68,7 @@ variables = Dictionary[String, ExtResource("2_ydptp")]({
 })
 
 [node name="TextureRect" type="TextureRect" parent="BaseCard" unique_id=509474582]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("2_oxmvl")
