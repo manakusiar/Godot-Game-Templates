@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b6oe2apyqr0s6"]
+
+[ext_resource type="Script" uid="uid://cu4w8nafe3d7" path="res://playing_cards/base_card/base_card.gd" id="1_yok0v"]
+[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://playing_cards/base_card/variable_component.gd" id="2_n0xcb"]
+
+[sub_resource type="Resource" id="Resource_n0xcb"]
+script = ExtResource("2_n0xcb")
+value = "res://icon.png"
+nodes = Array[NodePath]([NodePath("")])
+metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
+
+[sub_resource type="Resource" id="Resource_ekcly"]
+script = ExtResource("2_n0xcb")
+value = "Ut optio totam et voluptatem doloribus. Quas repellendus et sunt harum. At nisi deleniti reiciendis non modi provident.Asperiores ducimus suscipit voluptatem quis illo eius. Dicta et id ea non nihil voluptas. Fugit est consequatur atque omnis eum at. Numquam temporibus quis natus quo quia sed voluptas sed. Magnam aut totam doloremque laudantium assumenda."
+nodes = Array[NodePath]([NodePath(""), NodePath("")])
+metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
+
+[node name="BaseCard" type="Control" unique_id=1473813506]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_yok0v")
+variables = Dictionary[String, ExtResource("2_n0xcb")]({
+"image": SubResource("Resource_n0xcb"),
+"test": SubResource("Resource_ekcly")
+})

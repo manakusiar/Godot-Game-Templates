@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot Game Teplates"
-run/main_scene="uid://b6oe2apyqr0s6"
+run/main_scene="uid://ubsr1t4nvb13"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://c7tujatwwm4vk"
 
@@ -21,4 +21,5 @@ config/icon="uid://c7tujatwwm4vk"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
