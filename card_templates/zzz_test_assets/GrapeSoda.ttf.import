@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://36f3dby8b41d"
-path="res://.godot/imported/GrapeSoda.ttf-81a6ef1b4283ca1f0c78618ef88a007e.fontdata"
+path="res://.godot/imported/GrapeSoda.ttf-81be3bf15cf1f4b2b6df44386f0d7aa4.fontdata"
 
 [deps]
 
-source_file="res://playing_cards/test_assets/GrapeSoda.ttf"
-dest_files=["res://.godot/imported/GrapeSoda.ttf-81a6ef1b4283ca1f0c78618ef88a007e.fontdata"]
+source_file="res://card_templates/zzz_test_assets/GrapeSoda.ttf"
+dest_files=["res://.godot/imported/GrapeSoda.ttf-81be3bf15cf1f4b2b6df44386f0d7aa4.fontdata"]
 
 [params]
 

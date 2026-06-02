@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6oe2apyqr0s6"]
 
-[ext_resource type="Script" uid="uid://cu4w8nafe3d7" path="res://playing_cards/base_card/base_card.gd" id="1_yok0v"]
-[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://playing_cards/base_card/variable_component.gd" id="2_n0xcb"]
+[ext_resource type="Script" uid="uid://cu4w8nafe3d7" path="res://card_templates/base_card/base_card.gd" id="1_yok0v"]
+[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://card_templates/base_card/variable_component.gd" id="2_n0xcb"]
 
 [sub_resource type="Resource" id="Resource_n0xcb"]
 script = ExtResource("2_n0xcb")

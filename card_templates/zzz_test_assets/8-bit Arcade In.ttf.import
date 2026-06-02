@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cqy4joho7irr4"
-path="res://.godot/imported/8-bit Arcade In.ttf-08eff4d18750a1a662beb70a7985b0bd.fontdata"
+path="res://.godot/imported/8-bit Arcade In.ttf-2c5a26466a99e6b60b5406130f1e8c81.fontdata"
 
 [deps]
 
-source_file="res://playing_cards/test_assets/8-bit Arcade In.ttf"
-dest_files=["res://.godot/imported/8-bit Arcade In.ttf-08eff4d18750a1a662beb70a7985b0bd.fontdata"]
+source_file="res://card_templates/zzz_test_assets/8-bit Arcade In.ttf"
+dest_files=["res://.godot/imported/8-bit Arcade In.ttf-2c5a26466a99e6b60b5406130f1e8c81.fontdata"]
 
 [params]
 

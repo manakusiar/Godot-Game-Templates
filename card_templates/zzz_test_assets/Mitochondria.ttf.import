@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c146h4s0qhk0j"
-path="res://.godot/imported/Mitochondria.ttf-16af28dea709a9e3f8fedd2e27275765.fontdata"
+path="res://.godot/imported/Mitochondria.ttf-c128f6fd9ab39d7e22a0d0d27f33ccc4.fontdata"
 
 [deps]
 
-source_file="res://playing_cards/test_assets/Mitochondria.ttf"
-dest_files=["res://.godot/imported/Mitochondria.ttf-16af28dea709a9e3f8fedd2e27275765.fontdata"]
+source_file="res://card_templates/zzz_test_assets/Mitochondria.ttf"
+dest_files=["res://.godot/imported/Mitochondria.ttf-c128f6fd9ab39d7e22a0d0d27f33ccc4.fontdata"]
 
 [params]
 

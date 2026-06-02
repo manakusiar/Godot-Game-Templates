@@ -1,63 +1,63 @@
 [gd_scene format=3 uid="uid://ubsr1t4nvb13"]
 
-[ext_resource type="PackedScene" uid="uid://b6oe2apyqr0s6" path="res://playing_cards/base_card/base_card.tscn" id="1_qub46"]
-[ext_resource type="Texture2D" uid="uid://b8bvdpsctaeme" path="res://playing_cards/test_assets/empty-card.png" id="2_oxmvl"]
-[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://playing_cards/base_card/variable_component.gd" id="2_ydptp"]
-[ext_resource type="Texture2D" uid="uid://die7wlk7gdqus" path="res://playing_cards/test_assets/sword.png" id="3_ofkgh"]
-[ext_resource type="FontFile" uid="uid://36f3dby8b41d" path="res://playing_cards/test_assets/GrapeSoda.ttf" id="4_ydptp"]
-[ext_resource type="FontFile" uid="uid://c146h4s0qhk0j" path="res://playing_cards/test_assets/Mitochondria.ttf" id="5_eu0dx"]
-[ext_resource type="FontFile" uid="uid://cqy4joho7irr4" path="res://playing_cards/test_assets/8-bit Arcade In.ttf" id="7_t5ksu"]
+[ext_resource type="PackedScene" uid="uid://b6oe2apyqr0s6" path="res://card_templates/base_card/base_card.tscn" id="1_le32m"]
+[ext_resource type="Script" uid="uid://bd4l5s3mmvsiq" path="res://card_templates/base_card/variable_component.gd" id="2_kujgc"]
+[ext_resource type="Texture2D" uid="uid://b8bvdpsctaeme" path="res://card_templates/zzz_test_assets/empty-card.png" id="3_gfviw"]
+[ext_resource type="Texture2D" uid="uid://die7wlk7gdqus" path="res://card_templates/zzz_test_assets/sword.png" id="4_bf3ff"]
+[ext_resource type="FontFile" uid="uid://c146h4s0qhk0j" path="res://card_templates/zzz_test_assets/Mitochondria.ttf" id="5_02vrb"]
+[ext_resource type="FontFile" uid="uid://36f3dby8b41d" path="res://card_templates/zzz_test_assets/GrapeSoda.ttf" id="6_hnbg1"]
+[ext_resource type="FontFile" uid="uid://cqy4joho7irr4" path="res://card_templates/zzz_test_assets/8-bit Arcade In.ttf" id="7_qtuu6"]
 
 [sub_resource type="Resource" id="Resource_t5ksu"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "2"
 nodes = Array[NodePath]([NodePath("TextureRect/HBoxContainer/Cost")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_nt6dg"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "1"
 nodes = Array[NodePath]([NodePath("TextureRect/HBoxContainer/Damage")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_gepor"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "-"
 nodes = Array[NodePath]([NodePath("TextureRect/HBoxContainer/Health")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_88kqg"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "res://playing_cards/test_assets/sword.png"
 nodes = Array[NodePath]([NodePath("TextureRect/Image")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_eu0dx"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "strike"
 nodes = Array[NodePath]([NodePath("TextureRect/Name")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_0qq8w"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "common"
 nodes = Array[NodePath]([NodePath("TextureRect/Type")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [sub_resource type="Resource" id="Resource_qcmdc"]
-script = ExtResource("2_ydptp")
+script = ExtResource("2_kujgc")
 value = "attack"
 nodes = Array[NodePath]([NodePath("TextureRect/Type2")])
 metadata/_custom_type_script = "uid://bd4l5s3mmvsiq"
 
 [node name="TestMainScene" type="Node2D" unique_id=981349146]
 
-[node name="BaseCard" parent="." unique_id=404934485 instance=ExtResource("1_qub46")]
+[node name="BaseCard" parent="." unique_id=404934485 instance=ExtResource("1_le32m")]
 offset_left = 272.0
 offset_top = 109.0
 offset_right = 272.0
 offset_bottom = 109.0
-variables = Dictionary[String, ExtResource("2_ydptp")]({
+variables = Dictionary[String, ExtResource("2_kujgc")]({
 "cost": SubResource("Resource_t5ksu"),
 "damage": SubResource("Resource_nt6dg"),
 "health": SubResource("Resource_gepor"),
@@ -71,14 +71,14 @@ variables = Dictionary[String, ExtResource("2_ydptp")]({
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("2_oxmvl")
+texture = ExtResource("3_gfviw")
 
 [node name="Image" type="TextureRect" parent="BaseCard/TextureRect" unique_id=464908825]
 layout_mode = 0
 offset_top = 16.0
 offset_right = 80.0
 offset_bottom = 96.0
-texture = ExtResource("3_ofkgh")
+texture = ExtResource("4_bf3ff")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BaseCard/TextureRect" unique_id=145142699]
 layout_mode = 0
@@ -94,7 +94,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("5_eu0dx")
+theme_override_fonts/font = ExtResource("5_02vrb")
 theme_override_font_sizes/font_size = 8
 text = "9"
 horizontal_alignment = 1
@@ -104,7 +104,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
 size_flags_stretch_ratio = 2.0
-theme_override_fonts/font = ExtResource("5_eu0dx")
+theme_override_fonts/font = ExtResource("5_02vrb")
 theme_override_font_sizes/font_size = 8
 text = " 3"
 horizontal_alignment = 1
@@ -114,7 +114,7 @@ vertical_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("5_eu0dx")
+theme_override_fonts/font = ExtResource("5_02vrb")
 theme_override_font_sizes/font_size = 8
 text = "9"
 horizontal_alignment = 1
@@ -130,7 +130,7 @@ offset_top = 4.0
 offset_right = 76.0
 offset_bottom = 31.0
 theme_override_constants/line_spacing = -6
-theme_override_fonts/font = ExtResource("4_ydptp")
+theme_override_fonts/font = ExtResource("6_hnbg1")
 text = "SLASH test he"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -145,7 +145,7 @@ offset_top = 15.0
 offset_right = 16.0
 offset_bottom = 94.0
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("7_t5ksu")
+theme_override_fonts/font = ExtResource("7_qtuu6")
 theme_override_font_sizes/font_size = 16
 text = "legend"
 horizontal_alignment = 1
@@ -161,7 +161,7 @@ offset_top = 15.0
 offset_right = 76.0
 offset_bottom = 94.0
 theme_override_constants/line_spacing = -4
-theme_override_fonts/font = ExtResource("7_t5ksu")
+theme_override_fonts/font = ExtResource("7_qtuu6")
 theme_override_font_sizes/font_size = 16
 text = "skill"
 horizontal_alignment = 1

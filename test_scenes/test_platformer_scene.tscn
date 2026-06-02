@@ -1,15 +1,13 @@
-[gd_scene format=4 uid="uid://dfuvtf6ii62bc"]
+[gd_scene format=4 uid="uid://drmt1how0qg3v"]
 
-[ext_resource type="Script" uid="uid://dfdcijgdas0sq" path="res://platformer_components/entity_template.gd" id="1_18u2u"]
-[ext_resource type="Script" uid="uid://w8bhhrs12crw" path="res://platformer_components/input_components/player_input_component.gd" id="2_hoh07"]
-[ext_resource type="PackedScene" uid="uid://ldyuw75enusf" path="res://platformer_components/physics_component/physics_component.tscn" id="3_18u2u"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_3wp8d"]
+[ext_resource type="Script" uid="uid://dfdcijgdas0sq" path="res://platformer_templates/entity_template.gd" id="1_60ys1"]
+[ext_resource type="Script" uid="uid://w8bhhrs12crw" path="res://platformer_templates/input_components/player_input_component.gd" id="2_80keq"]
+[ext_resource type="PackedScene" uid="uid://ldyuw75enusf" path="res://platformer_templates/physics_component/physics_component.tscn" id="3_0nryn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n22hb"]
 size = Vector2(129, 128)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_18u2u"]
-texture = ExtResource("4_3wp8d")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -148,21 +146,20 @@ sources/0 = SubResource("TileSetAtlasSource_18u2u")
 [node name="EntityTemplate" type="CharacterBody2D" parent="." unique_id=690005684 node_paths=PackedStringArray("physics_component", "input_component")]
 position = Vector2(150, 108)
 scale = Vector2(0.4399988, 0.4399988)
-script = ExtResource("1_18u2u")
+script = ExtResource("1_60ys1")
 physics_component = NodePath("PhysicsComponent")
 input_component = NodePath("PlayerInputComponent")
 metadata/_custom_type_script = "uid://dfdcijgdas0sq"
 
 [node name="PlayerInputComponent" type="Node" parent="EntityTemplate" unique_id=1320087618]
-script = ExtResource("2_hoh07")
+script = ExtResource("2_80keq")
 metadata/_custom_type_script = "uid://w8bhhrs12crw"
 
-[node name="PhysicsComponent" parent="EntityTemplate" unique_id=1423151820 node_paths=PackedStringArray("LocalInputComponent", "target") instance=ExtResource("3_18u2u")]
+[node name="PhysicsComponent" parent="EntityTemplate" unique_id=1423151820 node_paths=PackedStringArray("LocalInputComponent", "target") instance=ExtResource("3_0nryn")]
 LocalInputComponent = NodePath("../PlayerInputComponent")
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="EntityTemplate" unique_id=1729163150]
-texture = ExtResource("4_3wp8d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityTemplate" unique_id=26463820]
 position = Vector2(-0.5, 0)
