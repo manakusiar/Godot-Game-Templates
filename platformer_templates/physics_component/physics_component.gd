@@ -7,19 +7,19 @@ class_name PhysicsComponent
 
 @export_subgroup("Settings/Toggles")
 @export var use_acceleration := true
-@export var use_acceleration_movement := false # Use acceleration based left-right movement
-@export var use_acceleration_jumping := true # Use acceleration based jumping
 @export var use_cayote_timing := true
 @export var use_short_jumps := true # Be able to cancel jump by letting go of the button  
 
 @export_subgroup("Settings/Values")
 @export var movement_speed: float = 128.0
 @export var jump_height: float = 140.0
+@export var wall_jump_mult: Vector2 = Vector2(2, 2)
 @export var distance_to_jump_height: float = 128
 @export var air_movement_mutliplier: Vector2 = Vector2(0.50, 0.25)
 @export var resistence: Vector2 = Vector2(0.8, 1)
 @export var max_speed: Vector2 = Vector2(64*8, 10000)
 @export var fall_gravity_multiplier: float = 1.0
+@export var wall_slide_gravity_multiplier: float = 0.25
 
 # Nodes
 var cayote_timer: Timer
@@ -33,7 +33,9 @@ var is_falling: bool = false
 
 var test_pos := Vector2.ZERO
 
+# -----------------------
 # --- Engine Callback ---
+# -----------------------
 
 func _ready() -> void:
 	var _lic: InputComponent = LocalInputComponent
@@ -50,10 +52,11 @@ func _ready() -> void:
 
 func handle_physics(delta: float) -> void:
 	var _dmult := delta * 60
+	var move_dir := LocalInputComponent.get_movement_input()
 	
-	_handle_jumping()
-	_handle_gravity(_dmult)
-	_handle_movement(_dmult)
+	_handle_jumping(move_dir)
+	_handle_gravity(_dmult, move_dir)
+	_handle_movement(_dmult, move_dir)
 	
 	var _previous_position = target.position
 	
@@ -62,7 +65,7 @@ func handle_physics(delta: float) -> void:
 	_handle_peak_of_jump(_previous_position)
 
 # JUMPING
-func _handle_jumping() -> void:
+func _handle_jumping(move_dir: Vector2) -> void:
 	var _is_on_floor = target.is_on_floor()
 	
 	# Starting cayote timer
@@ -76,6 +79,13 @@ func _handle_jumping() -> void:
 	if _should_jump and _can_jump:
 			jump()
 			jump_buffer_timer.stop()
+	
+	# Wall Jumping
+	_can_jump = target.is_on_wall() and not _is_on_floor
+	_should_jump = not jump_buffer_timer.is_stopped()
+	if _should_jump and _can_jump:
+			wall_jump(move_dir)
+			jump_buffer_timer.stop()
 
 # PEAK OF JUMP
 func _handle_peak_of_jump(_previous_position) -> void:
@@ -85,19 +95,20 @@ func _handle_peak_of_jump(_previous_position) -> void:
 		is_falling = true
 
 # GRAVITY 
-func _handle_gravity(dmult: float) -> void:
+func _handle_gravity(dmult: float, move_dir: Vector2) -> void:
 	var _gravity = gravity * dmult
 	
 	# Multiply gravity after peak of jump
 	if is_falling:
 		_gravity *= fall_gravity_multiplier
+	if target.is_on_wall() and target.velocity.y > 0 and move_dir.x != 0:
+		_gravity *= wall_slide_gravity_multiplier
 	
 	target.velocity.y -= _gravity
 
 # HORIZONTAL MOVEMENT
-func _handle_movement(dmult: float) -> void:
+func _handle_movement(dmult: float, move_dir: Vector2) -> void:
 	var _is_on_floor = target.is_on_floor()
-	var move_dir := LocalInputComponent.get_movement_input()
 	var _movement_speed = movement_speed * move_dir.x * dmult
 	
 	if _is_on_floor:
@@ -107,12 +118,12 @@ func _handle_movement(dmult: float) -> void:
 		# Reduce movement in air
 		_movement_speed *= air_movement_mutliplier.x
 	
-	target.velocity.x += _movement_speed
+	# Limit velocity
+	if abs(target.velocity.x) < max_speed.x or sign(target.velocity.x) != sign(_movement_speed):
+		target.velocity.x += _movement_speed
 
 # APPLY MOVEMENT
 func _apply_physics() -> void:
-	# Limit velocity
-	target.velocity = target.velocity.clamp(-max_speed, max_speed)
 	
 	# Apply movement
 	target.move_and_slide()
@@ -143,6 +154,11 @@ func jump() -> void:
 	is_falling = false
 	target.velocity.y = -jump_power
 
+func wall_jump(move_dir: Vector2) -> void:
+	test_pos = target.position
+	is_falling = false
+	target.velocity = Vector2(-max_speed.x * move_dir.x, -jump_power) * wall_jump_mult
+
 # CALCULATE JUMP VARIABLES
 func _update_jump_vriables() -> void:
 	# Calculate the gravity and jump power depending on jump distance and jump height
@@ -154,7 +170,7 @@ func _update_jump_vriables() -> void:
 # CREATE / RESTORE TIMERS
 func _setup_timers() -> void:
 	# Free old timers
-	var _timers: Array[Timer] = [cayote_timer, jump_buffer_timer]
+	var _timers: Array[Timer] = [cayote_timer, jump_buffer_timer] 
 	for _timer in _timers:
 		if _timer != null: _timer.queue_free()
 	
@@ -167,5 +183,5 @@ func _setup_timers() -> void:
 	# Jump buffer timer
 	jump_buffer_timer = Timer.new()
 	cayote_timer.one_shot = true
-	jump_buffer_timer.wait_time = 0.3
+	jump_buffer_timer.wait_time = 0.1
 	add_child(jump_buffer_timer)
