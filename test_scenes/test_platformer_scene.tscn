@@ -23,7 +23,7 @@ sources/2 = SubResource("TileSetAtlasSource_c5qpi")
 [node name="TestPlatformerScene" type="Node2D" unique_id=864189634]
 
 [node name="EntityTemplate" type="CharacterBody2D" parent="." unique_id=690005684 node_paths=PackedStringArray("physics_component", "input_component")]
-position = Vector2(736, 352)
+position = Vector2(140, 462)
 script = ExtResource("1_60ys1")
 physics_component = NodePath("PhysicsComponent")
 input_component = NodePath("PlayerInputComponent")

@@ -9,6 +9,7 @@ class_name PhysicsComponent
 @export var use_acceleration := true
 @export var use_cayote_timing := true
 @export var use_short_jumps := true # Be able to cancel jump by letting go of the button  
+@export var can_wall_run := true
 
 @export_subgroup("Settings/Values")
 @export var movement_speed: float = 128.0
@@ -17,9 +18,13 @@ class_name PhysicsComponent
 @export var distance_to_jump_height: float = 128
 @export var air_movement_mutliplier: Vector2 = Vector2(0.50, 0.25)
 @export var resistence: Vector2 = Vector2(0.8, 1)
+@export var slide_resistence: Vector2 = Vector2(0.9, 1)
 @export var max_speed: Vector2 = Vector2(64*8, 10000)
 @export var fall_gravity_multiplier: float = 1.0
 @export var wall_slide_gravity_multiplier: float = 0.25
+@export var wall_detection_range: float = 48.0
+@export var slide_duration: float = 1.0
+@export var slide_distance: float = 64.0
 
 # Nodes
 var cayote_timer: Timer
@@ -27,12 +32,19 @@ var target_was_on_floor: bool = false
 var target_was_on_wall: bool = false
 
 var jump_buffer_timer: Timer
+var wall_detection_rays: Array[RayCast2D] = [null, null]
+
+var slide_timer: Timer
 
 var gravity: float = 0.0
 var jump_power: float = 0.0
+var slide_power: float = 0.0
 var is_falling: bool = false
 
 var test_pos := Vector2.ZERO
+
+signal hit_floor
+signal hit_peak_of_jump
 
 # -----------------------
 # --- Engine Callback ---
@@ -72,9 +84,12 @@ func _handle_jumping(move_dir: Vector2) -> void:
 	
 	# Starting cayote timer
 	if target_was_on_floor != _is_on_floor:
-		
-		cayote_timer.start()
+		if _is_on_floor == false:
+			cayote_timer.start()
+		else:
+			hit_floor.emit()
 		target_was_on_floor = _is_on_floor
+	
 	if target_was_on_wall != _is_on_wall:
 		if _is_on_wall == true and target.velocity.y > 0:
 			target.velocity *= 0.5
@@ -88,7 +103,8 @@ func _handle_jumping(move_dir: Vector2) -> void:
 			jump_buffer_timer.stop()
 	
 	# Wall Jumping
-	_can_jump = _is_on_wall and not _is_on_floor
+	var _colliding_with_wall = wall_detection_rays[1].is_colliding() or wall_detection_rays[0].is_colliding()
+	_can_jump = (_is_on_wall or _colliding_with_wall) and not _is_on_floor
 	_should_jump = not jump_buffer_timer.is_stopped()
 	if _should_jump and _can_jump:
 			wall_jump(move_dir)
@@ -99,6 +115,7 @@ func _handle_peak_of_jump(_previous_position) -> void:
 	# Check for peak of jump
 	if _previous_position.y < target.position.y and is_falling == false:
 		#print((test_pos - _previous_position).abs()) # Print jump distance till peak
+		hit_peak_of_jump.emit()
 		is_falling = true
 
 # GRAVITY 
@@ -120,14 +137,19 @@ func _handle_movement(dmult: float, move_dir: Vector2) -> void:
 	
 	if _is_on_floor:
 		# Floor resitence
-		target.velocity *= resistence
+		if slide_timer.is_stopped():
+			target.velocity *= resistence
+		else:
+			target.velocity *= slide_resistence
 	else:
 		# Reduce movement in air
 		_movement_speed *= air_movement_mutliplier.x
 	
 	# Limit velocity
-	if abs(target.velocity.x) < max_speed.x or sign(target.velocity.x) != sign(_movement_speed):
+	var _max_speed_checks = abs(target.velocity.x) < max_speed.x or sign(target.velocity.x) != sign(_movement_speed)
+	if _max_speed_checks:
 		target.velocity.x += _movement_speed
+		
 
 # APPLY MOVEMENT
 func _apply_physics() -> void:
@@ -149,7 +171,13 @@ func _aim_input(is_button_held: bool) -> void:
 	pass
 
 func _crouch_input(is_button_held: bool) -> void:
-	pass
+	if is_button_held:
+		var _move_dir = LocalInputComponent.get_movement_input().x
+		if _move_dir != 0 and slide_timer.is_stopped():
+			print("slode")
+			slide_timer.start()
+			target.velocity.x += _move_dir * slide_power
+		
 
 # ------------------------
 # --- Helper Functions ---
@@ -160,11 +188,16 @@ func jump() -> void:
 	test_pos = target.position
 	is_falling = false
 	target.velocity.y = -jump_power
+	cayote_timer.stop()
 
 func wall_jump(move_dir: Vector2) -> void:
 	test_pos = target.position
 	is_falling = false
-	target.velocity = Vector2(-max_speed.x * move_dir.x, -jump_power) * wall_jump_mult
+	
+	var _jump_direction = int(wall_detection_rays[1].is_colliding()) - int(wall_detection_rays[0].is_colliding())
+	if _jump_direction == 0: 
+		_jump_direction = move_dir.x
+	target.velocity = Vector2(-max_speed.x * _jump_direction, -jump_power) * wall_jump_mult
 
 # CALCULATE JUMP VARIABLES
 func _update_jump_vriables() -> void:
@@ -173,6 +206,9 @@ func _update_jump_vriables() -> void:
 	var final_jump_height = jump_height * 1.05  # Little addon to make sure you always reach just above the height
 	gravity = -2*final_jump_height / (_ticks_to_jump_height**2 / 60)
 	jump_power = (2*final_jump_height) / (_ticks_to_jump_height / 60)
+
+func _update_slide_variables() -> void:
+	slide_power = slide_distance * (1 - slide_resistence.x ** slide_duration) / (1 - slide_resistence.x)
 
 # CREATE / RESTORE TIMERS
 func _setup_timers() -> void:
@@ -189,6 +225,21 @@ func _setup_timers() -> void:
 	
 	# Jump buffer timer
 	jump_buffer_timer = Timer.new()
-	cayote_timer.one_shot = true
-	jump_buffer_timer.wait_time = 0.1
+	jump_buffer_timer.one_shot = true
+	jump_buffer_timer.wait_time = 0.05
 	add_child(jump_buffer_timer)
+	
+	# Wall detection rays
+	for i in wall_detection_rays.size():
+		var _ray = wall_detection_rays[i]
+		if _ray != null: _ray.queue_free()
+		_ray = RayCast2D.new()
+		add_child(_ray)
+		_ray.target_position = Vector2(wall_detection_range * (1 - 2*float(i == 0)), 0)
+		wall_detection_rays[i] = _ray
+	
+	# Slide timer
+	slide_timer = Timer.new()
+	slide_timer.one_shot = true
+	slide_timer.wait_time = slide_duration
+	add_child(slide_timer)
