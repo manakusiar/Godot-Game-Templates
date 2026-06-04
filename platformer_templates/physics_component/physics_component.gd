@@ -13,7 +13,7 @@ class_name PhysicsComponent
 @export_subgroup("Settings/Values")
 @export var movement_speed: float = 128.0
 @export var jump_height: float = 140.0
-@export var wall_jump_mult: Vector2 = Vector2(2, 2)
+@export var wall_jump_mult: Vector2 = Vector2(1.25, 1.25)
 @export var distance_to_jump_height: float = 128
 @export var air_movement_mutliplier: Vector2 = Vector2(0.50, 0.25)
 @export var resistence: Vector2 = Vector2(0.8, 1)
@@ -24,6 +24,7 @@ class_name PhysicsComponent
 # Nodes
 var cayote_timer: Timer
 var target_was_on_floor: bool = false
+var target_was_on_wall: bool = false
 
 var jump_buffer_timer: Timer
 
@@ -67,11 +68,17 @@ func handle_physics(delta: float) -> void:
 # JUMPING
 func _handle_jumping(move_dir: Vector2) -> void:
 	var _is_on_floor = target.is_on_floor()
+	var _is_on_wall = target.is_on_wall()
 	
 	# Starting cayote timer
 	if target_was_on_floor != _is_on_floor:
+		
 		cayote_timer.start()
 		target_was_on_floor = _is_on_floor
+	if target_was_on_wall != _is_on_wall:
+		if _is_on_wall == true and target.velocity.y > 0:
+			target.velocity *= 0.5
+		target_was_on_wall = _is_on_wall
 	
 	# Jump check
 	var _can_jump = _is_on_floor or not cayote_timer.is_stopped()
@@ -81,7 +88,7 @@ func _handle_jumping(move_dir: Vector2) -> void:
 			jump_buffer_timer.stop()
 	
 	# Wall Jumping
-	_can_jump = target.is_on_wall() and not _is_on_floor
+	_can_jump = _is_on_wall and not _is_on_floor
 	_should_jump = not jump_buffer_timer.is_stopped()
 	if _should_jump and _can_jump:
 			wall_jump(move_dir)
