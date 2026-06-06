@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ldyuw75enusf" path="res://platformer_templates/physics_component/physics_component.tscn" id="3_0nryn"]
 [ext_resource type="Texture2D" uid="uid://dblom4bk66i7y" path="res://platformer_templates/Sprite-0001.png" id="4_0nryn"]
 [ext_resource type="Texture2D" uid="uid://dgp6k8kp0kjq2" path="res://platformer_templates/Sprite-0002.png" id="5_dennv"]
+[ext_resource type="Texture2D" uid="uid://c7tujatwwm4vk" path="res://project_files/icon.png" id="6_dennv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n22hb"]
 size = Vector2(64, 62)
@@ -20,7 +21,53 @@ tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 sources/2 = SubResource("TileSetAtlasSource_c5qpi")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c5qpi"]
+size = Vector2(120, 120)
+
+[sub_resource type="Animation" id="Animation_mg6xs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-87, 306)]
+}
+
+[sub_resource type="Animation" id="Animation_2ba62"]
+resource_name = "move"
+loop_mode = 1
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-87, 306), Vector2(80, 306), Vector2(-87, 306)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xsqpa"]
+_data = {
+&"RESET": SubResource("Animation_mg6xs"),
+&"move": SubResource("Animation_2ba62")
+}
+
 [node name="TestPlatformerScene" type="Node2D" unique_id=864189634]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2069652383]
+position = Vector2(140, 462)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
 
 [node name="EntityTemplate" type="CharacterBody2D" parent="." unique_id=690005684 node_paths=PackedStringArray("physics_component", "input_component")]
 position = Vector2(140, 462)
@@ -44,10 +91,20 @@ texture = ExtResource("4_0nryn")
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_n22hb")
 
-[node name="Camera2D" type="Camera2D" parent="EntityTemplate" unique_id=2069652383]
-position_smoothing_enabled = true
-position_smoothing_speed = 7.0
-
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=996606739]
 tile_map_data = PackedByteArray("AAAAAAkAAgAAAAAAAAABAAkAAgAAAAAAAAACAAkAAgAAAAAAAAADAAkAAgAAAAAAAAAEAAkAAgAAAAAAAAAFAAkAAgAAAAAAAAAGAAkAAgAAAAAAAAAHAAkAAgAAAAAAAAAIAAkAAgAAAAAAAAAJAAkAAgAAAAAAAAAKAAkAAgAAAAAAAAALAAkAAgAAAAAAAAAMAAkAAgAAAAAAAAANAAkAAgAAAAAAAAAOAAkAAgAAAAAAAAAPAAkAAgAAAAAAAAAQAAkAAgAAAAAAAAARAAkAAgAAAAAAAAASAAkAAgAAAAAAAAATAAkAAgAAAAAAAAAUAAkAAgAAAAAAAAAVAAkAAgAAAAAAAAAAAAoAAgAAAAAAAAABAAoAAgAAAAAAAAACAAoAAgAAAAAAAAADAAoAAgAAAAAAAAAEAAoAAgAAAAAAAAAFAAoAAgAAAAAAAAAGAAoAAgAAAAAAAAAHAAoAAgAAAAAAAAAIAAoAAgAAAAAAAAAJAAoAAgAAAAAAAAAKAAoAAgAAAAAAAAALAAoAAgAAAAAAAAAMAAoAAgAAAAAAAAANAAoAAgAAAAAAAAAOAAoAAgAAAAAAAAAPAAoAAgAAAAAAAAAQAAoAAgAAAAAAAAARAAoAAgAAAAAAAAASAAoAAgAAAAAAAAATAAoAAgAAAAAAAAAUAAoAAgAAAAAAAAAVAAoAAgAAAAAAAAAWAAoAAgAAAAAAAAAVAAsAAgAAAAAAAAAUAAsAAgAAAAAAAAATAAsAAgAAAAAAAAASAAsAAgAAAAAAAAARAAsAAgAAAAAAAAAQAAsAAgAAAAAAAAAPAAsAAgAAAAAAAAAOAAsAAgAAAAAAAAANAAsAAgAAAAAAAAAMAAsAAgAAAAAAAAALAAsAAgAAAAAAAAAKAAsAAgAAAAAAAAAJAAsAAgAAAAAAAAAIAAsAAgAAAAAAAAAHAAsAAgAAAAAAAAAGAAsAAgAAAAAAAAAFAAsAAgAAAAAAAAAEAAsAAgAAAAAAAAADAAsAAgAAAAAAAAACAAsAAgAAAAAAAAABAAsAAgAAAAAAAAABAAwAAgAAAAAAAAAAAAwAAgAAAAAAAAAAAAsAAgAAAAAAAAD//wsAAgAAAAAAAAD+/wsAAgAAAAAAAAD+/woAAgAAAAAAAAD9/woAAgAAAAAAAAD8/woAAgAAAAAAAAD7/woAAgAAAAAAAAD+/wkAAgAAAAAAAAD//wkAAgAAAAAAAAD//woAAgAAAAAAAAAJAAgAAgAAAAAAAAAKAAgAAgAAAAAAAAALAAgAAgAAAAAAAAALAAcAAgAAAAAAAAAMAAcAAgAAAAAAAAAMAAYAAgAAAAAAAAANAAYAAgAAAAAAAAAOAAYAAgAAAAAAAAAPAAYAAgAAAAAAAAAPAAcAAgAAAAAAAAAQAAcAAgAAAAAAAAARAAcAAgAAAAAAAAARAAgAAgAAAAAAAAAQAAgAAgAAAAAAAAAPAAgAAgAAAAAAAAAOAAgAAgAAAAAAAAANAAgAAgAAAAAAAAAMAAgAAgAAAAAAAAAOAAcAAgAAAAAAAAANAAcAAgAAAAAAAAAGAAgAAgAAAAAAAAAGAAcAAgAAAAAAAAD9/wkAAgAAAAAAAAD8/wkAAgAAAAAAAAD7/wkAAgAAAAAAAAD6/wkAAgAAAAAAAAD5/wkAAgAAAAAAAAD4/wkAAgAAAAAAAAD3/wkAAgAAAAAAAAD2/wkAAgAAAAAAAAD1/wkAAgAAAAAAAAD0/wkAAgAAAAAAAADz/wkAAgAAAAAAAADy/wkAAgAAAAAAAADy/woAAgAAAAAAAADz/woAAgAAAAAAAAD0/woAAgAAAAAAAAD1/woAAgAAAAAAAAD2/woAAgAAAAAAAAD3/woAAgAAAAAAAAD4/woAAgAAAAAAAAD5/woAAgAAAAAAAAD6/woAAgAAAAAAAAD9/wsAAgAAAAAAAAD8/wsAAgAAAAAAAAD7/wsAAgAAAAAAAAD6/wsAAgAAAAAAAAD5/wsAAgAAAAAAAAD4/wsAAgAAAAAAAAD3/wsAAgAAAAAAAAD2/wsAAgAAAAAAAAD1/wsAAgAAAAAAAADx/wkAAgAAAAAAAADw/wkAAgAAAAAAAADv/wkAAgAAAAAAAADu/wkAAgAAAAAAAADt/wkAAgAAAAAAAADs/wkAAgAAAAAAAADs/woAAgAAAAAAAADt/woAAgAAAAAAAADu/woAAgAAAAAAAADv/woAAgAAAAAAAADw/woAAgAAAAAAAADx/woAAgAAAAAAAADr/woAAgAAAAAAAADq/woAAgAAAAAAAADp/wkAAgAAAAAAAADo/wkAAgAAAAAAAADn/woAAgAAAAAAAADm/woAAgAAAAAAAADq/wkAAgAAAAAAAADp/woAAgAAAAAAAADo/woAAgAAAAAAAADn/wkAAgAAAAAAAADm/wkAAgAAAAAAAADr/wkAAgAAAAAAAAAGAAYAAgAAAAAAAAAGAAUAAgAAAAAAAAAGAAQAAgAAAAAAAAAGAAMAAgAAAAAAAAACAAIAAgAAAAAAAAACAAMAAgAAAAAAAAACAAQAAgAAAAAAAAACAAUAAgAAAAAAAAACAAEAAgAAAAAAAAACAAAAAgAAAAAAAAACAP//AgAAAAAAAAAGAAIAAgAAAAAAAAAGAAEAAgAAAAAAAAAGAAAAAgAAAAAAAAAGAP//AgAAAAAAAAAHAP//AgAAAAAAAAAIAP//AgAAAAAAAAAJAP//AgAAAAAAAAAKAP//AgAAAAAAAAAKAAAAAgAAAAAAAAAJAAAAAgAAAAAAAAAIAAAAAgAAAAAAAAAHAAAAAgAAAAAAAAAHAAEAAgAAAAAAAAAHAAIAAgAAAAAAAAAHAAMAAgAAAAAAAAAHAAQAAgAAAAAAAAAHAAUAAgAAAAAAAAAHAAYAAgAAAAAAAAAHAAcAAgAAAAAAAAAHAAgAAgAAAAAAAAAIAAgAAgAAAAAAAAAIAAEAAgAAAAAAAAAIAAcAAgAAAAAAAAAKAAMAAgAAAAAAAAAKAAQAAgAAAAAAAAA=")
 tile_set = SubResource("TileSet_0nryn")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1782931503]
+position = Vector2(-87, 306)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1002224234]
+shape = SubResource("RectangleShape2D_c5qpi")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1744826312]
+texture = ExtResource("6_dennv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D" unique_id=1968985445]
+libraries/ = SubResource("AnimationLibrary_xsqpa")
+autoplay = &"move"

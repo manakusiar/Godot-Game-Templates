@@ -11,20 +11,28 @@ class_name PhysicsComponent
 @export var use_short_jumps := true # Be able to cancel jump by letting go of the button  
 @export var can_wall_run := true
 
-@export_subgroup("Settings/Values")
+@export_subgroup("Settings/Movement")
 @export var movement_speed: float = 128.0
-@export var jump_height: float = 140.0
-@export var wall_jump_mult: Vector2 = Vector2(1.25, 1.25)
-@export var distance_to_jump_height: float = 128
 @export var air_movement_mutliplier: Vector2 = Vector2(0.50, 0.25)
+@export var max_speed: Vector2 = Vector2(64*8, 10000)
+
+@export_subgroup("Settings/Jumping")
+@export var jump_height: float = 140.0
+@export var distance_to_jump_height: float = 128
+@export var fall_gravity_multiplier: float = 1.0
+
+@export_subgroup("Settings/Resistences")
 @export var resistence: Vector2 = Vector2(0.8, 1)
 @export var slide_resistence: Vector2 = Vector2(0.9, 1)
-@export var max_speed: Vector2 = Vector2(64*8, 10000)
-@export var fall_gravity_multiplier: float = 1.0
-@export var wall_slide_gravity_multiplier: float = 0.25
-@export var wall_detection_range: float = 48.0
+
+@export_subgroup("Settings/Slide")
 @export var slide_duration: float = 1.0
 @export var slide_distance: float = 64.0
+
+@export_subgroup("Settings/Wall Jump & Slide")
+@export var wall_jump_mult: Vector2 = Vector2(1.25, 1.25)
+@export var wall_slide_gravity_multiplier: float = 0.25
+@export var wall_detection_range: float = 48.0
 
 # Nodes
 var cayote_timer: Timer
