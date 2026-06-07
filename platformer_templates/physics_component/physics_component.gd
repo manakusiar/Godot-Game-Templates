@@ -251,3 +251,11 @@ func _setup_timers() -> void:
 	slide_timer.one_shot = true
 	slide_timer.wait_time = slide_duration
 	add_child(slide_timer)
+	
+
+# ------------------------
+# --- Getter Functions ---
+# ------------------------
+
+func get_touching_wall() -> Array:
+	return [wall_detection_rays[0].is_colliding(), wall_detection_rays[1].is_colliding()]
