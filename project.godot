@@ -12,9 +12,13 @@ config_version=5
 
 config/name="Godot Game Teplates"
 config/tags=PackedStringArray("card_game", "platformer")
-run/main_scene="uid://drmt1how0qg3v"
+run/main_scene="uid://5mw2rkoowt3w"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="uid://c7tujatwwm4vk"
+
+[autoload]
+
+GlobalTestMenu="*uid://27wlawehg87v"
 
 [input]
 
