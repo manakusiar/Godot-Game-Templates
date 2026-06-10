@@ -13,10 +13,11 @@
             "state": {
               "type": "kanban",
               "state": {
-                "file": "AAA General.md",
+                "file": "Finite state based machine.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
                   "list-collapse": [
+                    false,
                     false,
                     false,
                     false
@@ -24,7 +25,7 @@
                 }
               },
               "icon": "lucide-trello",
-              "title": "AAA General"
+              "title": "Finite state based machine"
             }
           }
         ]
@@ -192,10 +193,12 @@
   },
   "active": "8935380373e4c1b8",
   "lastOpenFiles": [
-    "Pause Menu.md",
     "Entity Physics Component.md",
-    "Input Component.md",
+    "Finite state based machine.md",
     "AAA General.md",
+    "Pause Menu.md",
+    "Input Component.md",
+    "Untitled.base",
     "Untitled.md",
     "Welcome.md"
   ]

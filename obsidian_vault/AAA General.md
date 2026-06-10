@@ -12,6 +12,11 @@ kanban-plugin: board
 - [ ] Player Abilities Component
 
 
+## Planning
+
+- [ ] Finite state machines Component
+
+
 ## Doing
 
 - [ ] Node-based card
@@ -28,6 +33,6 @@ kanban-plugin: board
 
 %% kanban:settings
 ```
-{"kanban-plugin":"board","list-collapse":[false,false,false]}
+{"kanban-plugin":"board","list-collapse":[false,false,false,false]}
 ```
 %%
